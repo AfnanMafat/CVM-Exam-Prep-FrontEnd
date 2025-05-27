@@ -13,11 +13,14 @@ export default function RoutingPages() {
         <Routes>
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/" element={<Login />} />
-          <Route element={<Navbar />}>
+          <Route path="/HomePage" element={<HomePage />} />
+            <Route path="/Feedback" element={<Feedback />} />
+            <Route path="/UploadMaterial" element={<UploadMaterial />} />
+          {/* <Route element={<Navbar />}>
             <Route path="/HomePage" element={<HomePage />} />
             <Route path="/Feedback" element={<Feedback />} />
             <Route path="/UploadMaterial" element={<UploadMaterial />} />
-          </Route>
+          </Route> */}
         </Routes>
       </div>
     </>
