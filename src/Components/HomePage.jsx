@@ -264,7 +264,8 @@
 
 // export default HomePage;
 
-import { useState, useEffect, useContext } from "react";
+import React from "react";
+import { useState, useEffect} from "react";
 import axios from "axios";
 import { UserData } from "../ContextAPI/UserData";
 import Navbar from "./Navbar";
@@ -276,7 +277,6 @@ import {
 } from "@heroicons/react/24/outline";
 
 const HomePage = () => {
-  const { Id } = useContext(UserData);
 
   const [branches, setBranches] = useState([]);
   const [semesters, setSemesters] = useState([]);
@@ -285,13 +285,15 @@ const HomePage = () => {
 
   const [selectedBranch, setSelectedBranch] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
-  const [selectedSubject, setSelectedSubject] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState("");  
 
   useEffect(() => {
+    
     axios
       .get("http://localhost:8080/ListBranches")
       .then((res) => setBranches(res.data))
       .catch((err) => console.error("Error fetching branches:", err));
+      
   }, []);
 
   useEffect(() => {
@@ -311,12 +313,14 @@ const HomePage = () => {
       setSubjects([]);
       setSelectedSubject("");
       return;
-    }
+    }    
     axios
-      .get(`http://localhost:8080/ListAllSubBySem/${selectedSemester}`)
+      .get(`http://localhost:8080/ListAllSubByBranchSem/${selectedBranch}/${selectedSemester%8}`)
       .then((res) => setSubjects(res.data))
       .catch((err) => console.error("Error fetching subjects:", err));
   }, [selectedSemester]);
+
+
 
   useEffect(() => {
     if (!selectedSubject) {
@@ -352,8 +356,8 @@ const HomePage = () => {
                 <option value="" disabled>
                   Select Branch
                 </option>
-                {branches.map((b) => (
-                  <option key={b.id} value={b.id}>
+                {branches.map((b,index) => (
+                  <option key={index} value={b.id}>
                     {b.name}
                   </option>
                 ))}
@@ -450,7 +454,7 @@ const HomePage = () => {
                     {/* <span>{selectedSubject}</span> */}
                   </div>
                   <div className="flex items-center gap-2">
-                    <span>Semester {selectedSemester}</span>
+                    <span>Semester {selectedSemester % 8}</span>
                   </div>
                 </div>
 

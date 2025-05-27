@@ -6,7 +6,9 @@ import Navbar from "./Navbar";
 
 const UploadMaterial = () => {
 
-  const {Id} = useContext(UserData);
+  const {Id=2} = useContext(UserData);
+
+  console.log("Id ",Id);
 
   delete axios.defaults.headers.post["Content-Type"];
   axios.defaults.transformRequest = [(data) => data];
@@ -28,6 +30,7 @@ const UploadMaterial = () => {
   const FetchBranches = () => {
     axios.get("http://localhost:8080/ListBranches").then((res) => {
       setBranches(res.data);
+      
     });
   };
 
@@ -52,11 +55,12 @@ const UploadMaterial = () => {
   const FetchSubject = () => {
     if (formData.branch && formData.semester) {
       axios
-        .get(`http://localhost:8080/ListAllSubBySem/${formData.semester}`)
+        .get(`http://localhost:8080/ListAllSubByBranchSem/${formData.branch}/${formData.semester%8}`)
         .then((res) => setSubjects(res.data))
         .catch((err) => console.error("Error fetching subjects:", err));
     }
   };
+  // ListAllSubByBranchSem/{bid}/{id}
 
   useEffect(() => {
     FetchSubject();
@@ -125,8 +129,8 @@ const UploadMaterial = () => {
                 required
               >
                 <option value="" disabled>Select Branch</option>
-                {branches.map((branch) => (
-                  <option key={branch.id} value={branch.id}>{branch.name}</option>
+                {branches.map((branch,index) => (
+                  <option key={index} value={branch.id}>{branch.name}</option>
                 ))}
               </select>
             </div>

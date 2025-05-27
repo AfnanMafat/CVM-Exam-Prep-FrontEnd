@@ -14,8 +14,8 @@ export default function RoutingPages() {
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/" element={<Login />} />
           <Route path="/HomePage" element={<HomePage />} />
-            <Route path="/Feedback" element={<Feedback />} />
-            <Route path="/UploadMaterial" element={<UploadMaterial />} />
+          <Route path="/Feedback" element={<Feedback />} />
+          <Route path="/UploadMaterial" element={<UploadMaterial />} />
           {/* <Route element={<Navbar />}>
             <Route path="/HomePage" element={<HomePage />} />
             <Route path="/Feedback" element={<Feedback />} />
