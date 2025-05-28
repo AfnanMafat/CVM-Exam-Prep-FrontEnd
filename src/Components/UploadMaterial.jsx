@@ -8,7 +8,13 @@ const UploadMaterial = () => {
 
   const {Id=2} = useContext(UserData);
 
-  console.log("Id ",Id);
+  const Check = (selectedSemester) => {
+    if(selectedSemester % 8 == 0){
+      return 8;
+    }else{
+      return selectedSemester % 8;
+    }
+  }
 
   delete axios.defaults.headers.post["Content-Type"];
   axios.defaults.transformRequest = [(data) => data];
@@ -52,10 +58,13 @@ const UploadMaterial = () => {
     FetchSemsters();
   }, [formData.branch]);
 
+  console.log(formData);
+  
+
   const FetchSubject = () => {
     if (formData.branch && formData.semester) {
       axios
-        .get(`http://localhost:8080/ListAllSubByBranchSem/${formData.branch}/${formData.semester%8}`)
+        .get(`http://localhost:8080/ListAllSubByBranchSem/${formData.branch}/${Check(formData.semester)}`)
         .then((res) => setSubjects(res.data))
         .catch((err) => console.error("Error fetching subjects:", err));
     }

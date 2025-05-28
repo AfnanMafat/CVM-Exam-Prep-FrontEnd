@@ -287,6 +287,14 @@ const HomePage = () => {
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");  
 
+  const Check = (selectedSemester) => {
+    if(selectedSemester % 8 == 0){
+      return 8;
+    }else{
+      return selectedSemester % 8;
+    }
+  }
+
   useEffect(() => {
     
     axios
@@ -315,13 +323,12 @@ const HomePage = () => {
       return;
     }    
     axios
-      .get(`http://localhost:8080/ListAllSubByBranchSem/${selectedBranch}/${selectedSemester%8}`)
+      .get(`http://localhost:8080/ListAllSubByBranchSem/${selectedBranch}/${Check(selectedSemester)}`)
       .then((res) => setSubjects(res.data))
       .catch((err) => console.error("Error fetching subjects:", err));
   }, [selectedSemester]);
 
-
-
+  
   useEffect(() => {
     if (!selectedSubject) {
       setMaterials([]);
