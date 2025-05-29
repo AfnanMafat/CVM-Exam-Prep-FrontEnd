@@ -18,7 +18,6 @@ export default function Navbar() {
               <span className="text-xl font-bold text-blue-600">CVMExamPrep</span>
             </div>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex place-items-start justify-center space-x-40">
               <Link
                 to="/HomePage"
@@ -53,7 +52,6 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Mobile Menu Button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -69,7 +67,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
             <div className="px-2 pt-2 pb-3 space-y-1">

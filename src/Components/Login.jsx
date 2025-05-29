@@ -47,7 +47,6 @@ const Login = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Email Input */}
           <div className="relative">
             <EnvelopeIcon className="h-5 w-5 absolute left-4 top-3.5 text-gray-400" />
             <input
@@ -63,7 +62,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Password Input */}
           <div className="relative">
             <LockClosedIcon className="h-5 w-5 absolute left-4 top-3.5 text-gray-400" />
             <input

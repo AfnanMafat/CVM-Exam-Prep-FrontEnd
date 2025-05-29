@@ -265,7 +265,7 @@
 // export default HomePage;
 
 import React from "react";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { UserData } from "../ContextAPI/UserData";
 import Navbar from "./Navbar";
@@ -277,7 +277,6 @@ import {
 } from "@heroicons/react/24/outline";
 
 const HomePage = () => {
-
   const [branches, setBranches] = useState([]);
   const [semesters, setSemesters] = useState([]);
   const [subjects, setSubjects] = useState([]);
@@ -285,23 +284,21 @@ const HomePage = () => {
 
   const [selectedBranch, setSelectedBranch] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
-  const [selectedSubject, setSelectedSubject] = useState("");  
+  const [selectedSubject, setSelectedSubject] = useState("");
 
   const Check = (selectedSemester) => {
-    if(selectedSemester % 8 == 0){
+    if (selectedSemester % 8 == 0) {
       return 8;
-    }else{
+    } else {
       return selectedSemester % 8;
     }
-  }
+  };
 
   useEffect(() => {
-    
     axios
       .get("http://localhost:8080/ListBranches")
       .then((res) => setBranches(res.data))
       .catch((err) => console.error("Error fetching branches:", err));
-      
   }, []);
 
   useEffect(() => {
@@ -321,14 +318,17 @@ const HomePage = () => {
       setSubjects([]);
       setSelectedSubject("");
       return;
-    }    
+    }
     axios
-      .get(`http://localhost:8080/ListAllSubByBranchSem/${selectedBranch}/${Check(selectedSemester)}`)
+      .get(
+        `http://localhost:8080/ListAllSubByBranchSem/${selectedBranch}/${Check(
+          selectedSemester
+        )}`
+      )
       .then((res) => setSubjects(res.data))
       .catch((err) => console.error("Error fetching subjects:", err));
   }, [selectedSemester]);
 
-  
   useEffect(() => {
     if (!selectedSubject) {
       setMaterials([]);
@@ -350,7 +350,6 @@ const HomePage = () => {
             Explore Study Materials
           </h1>
 
-          {/* Filters */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12 bg-white rounded-2xl p-6 shadow-lg">
             <div className="relative">
               <select
@@ -363,7 +362,7 @@ const HomePage = () => {
                 <option value="" disabled>
                   Select Branch
                 </option>
-                {branches.map((b,index) => (
+                {branches.map((b, index) => (
                   <option key={index} value={b.id}>
                     {b.name}
                   </option>
@@ -419,8 +418,6 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Materials Grid */}
-
           {console.log(materials)}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {console.log(materials)}
@@ -442,7 +439,6 @@ const HomePage = () => {
                     <h2 className="text-xl font-semibold text-gray-800 mb-2">
                       {mat.title}
                     </h2>
-                    {/* Added description section */}
                     {mat.description && (
                       <p className="text-sm text-gray-600 mb-3">
                         {mat.description}
@@ -458,7 +454,6 @@ const HomePage = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <BookOpenIcon className="h-4 w-4" />
-                    {/* <span>{selectedSubject}</span> */}
                   </div>
                   <div className="flex items-center gap-2">
                     <span>Semester {selectedSemester % 8}</span>
@@ -470,7 +465,7 @@ const HomePage = () => {
                     {mat.type}
                   </span>
                   <a
-                    href={"http://localhost:8080"+mat.fileUrl}
+                    href={"http://localhost:8080" + mat.fileUrl}
                     className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2"
                     target="_blank"
                     rel="noopener noreferrer"
