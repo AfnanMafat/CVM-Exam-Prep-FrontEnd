@@ -341,27 +341,41 @@ const HomePage = () => {
   }, [selectedSubject]);
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50">
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pt-20 p-8">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-800 mb-10 text-center flex items-center justify-center gap-3">
-            <AcademicCapIcon className="h-12 w-12 text-blue-600" />
-            Explore Study Materials
-          </h1>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-20 left-10 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+      <div className="absolute top-1/3 right-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+      <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+      
+      <div className="relative pt-24 pb-12 px-4 max-w-6xl mx-auto z-10">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center mb-6">
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 rounded-xl mr-4 shadow-lg">
+              <AcademicCapIcon className="h-12 w-12 text-white" />
+            </div>
+            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+              Explore Study Materials
+            </h1>
+          </div>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Find the perfect study resources to ace your exams and master your subjects
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12 bg-white rounded-2xl p-6 shadow-lg">
+        {/* Filters - Only CSS classes changed */}
+        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-white mb-12 p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="relative">
               <select
-                className="w-full pl-4 pr-8 py-3 rounded-xl border-2 border-gray-200 
-                         focus:ring-4 focus:ring-blue-100 focus:border-blue-500 
-                         transition-all appearance-none"
+                className="w-full pl-4 pr-8 py-3 rounded-xl border-2 border-indigo-200 
+                         focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 
+                         transition-all appearance-none text-indigo-800 font-medium"
                 value={selectedBranch}
                 onChange={(e) => setSelectedBranch(e.target.value)}
               >
-                <option value="" disabled>
-                  Select Branch
-                </option>
+                <option value="" disabled>Select Branch</option>
                 {branches.map((b, index) => (
                   <option key={index} value={b.id}>
                     {b.name}
@@ -373,18 +387,16 @@ const HomePage = () => {
 
             <div className="relative">
               <select
-                className={`w-full pl-4 pr-8 py-3 rounded-xl border-2 border-gray-200 
-                         focus:ring-4 focus:ring-blue-100 focus:border-blue-500 
-                         transition-all appearance-none ${
+                className={`w-full pl-4 pr-8 py-3 rounded-xl border-2 border-indigo-200 
+                         focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 
+                         transition-all appearance-none text-indigo-800 font-medium ${
                            !selectedBranch && "opacity-50"
                          }`}
                 value={selectedSemester}
                 onChange={(e) => setSelectedSemester(e.target.value)}
                 disabled={!selectedBranch}
               >
-                <option value="" disabled>
-                  Select Semester
-                </option>
+                <option value="" disabled>Select Semester</option>
                 {semesters.map((s) => (
                   <option key={s.id} value={s.id}>
                     Semester {s.number}
@@ -396,18 +408,16 @@ const HomePage = () => {
 
             <div className="relative">
               <select
-                className={`w-full pl-4 pr-8 py-3 rounded-xl border-2 border-gray-200 
-                         focus:ring-4 focus:ring-blue-100 focus:border-blue-500 
-                         transition-all appearance-none ${
+                className={`w-full pl-4 pr-8 py-3 rounded-xl border-2 border-indigo-200 
+                         focus:ring-4 focus:ring-indigo-100 focus:border-indigo-500 
+                         transition-all appearance-none text-indigo-800 font-medium ${
                            !selectedSemester && "opacity-50"
                          }`}
                 value={selectedSubject}
                 onChange={(e) => setSelectedSubject(e.target.value)}
                 disabled={!selectedSemester}
               >
-                <option value="" disabled>
-                  Select Subject
-                </option>
+                <option value="" disabled>Select Subject</option>
                 {subjects.map((sub) => (
                   <option key={sub.id} value={sub.id}>
                     {sub.name}
@@ -417,90 +427,116 @@ const HomePage = () => {
               <DocumentTextIcon className="h-5 w-5 absolute right-3 top-3.5 text-gray-400 pointer-events-none" />
             </div>
           </div>
+        </div> 
 
-          {console.log(materials)}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {console.log(materials)}
-            {materials.map((mat) => (
-              <div
-                key={mat.id}
-                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="bg-blue-100 p-3 rounded-xl">
-                    {mat.type === "notes" && (
-                      <AcademicCapIcon className="h-6 w-6 text-blue-600" />
-                    )}
-                    {mat.type === "past_papers" && (
-                      <DocumentTextIcon className="h-6 w-6 text-blue-600" />
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                      {mat.title}
-                    </h2>
-                    {mat.description && (
-                      <p className="text-sm text-gray-600 mb-3">
-                        {mat.description}
-                      </p>
-                    )}
-                  </div>
+        {/* Materials Grid - Only CSS classes changed */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {materials.map((mat) => (
+            <div
+              key={mat.id}
+              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-white animate-fadeIn"
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-gradient-to-r from-indigo-100 to-purple-100 p-3 rounded-xl">
+                  {mat.type === "notes" && (
+                    <AcademicCapIcon className="h-6 w-6 text-indigo-600" />
+                  )}
+                  {mat.type === "past_papers" && (
+                    <DocumentTextIcon className="h-6 w-6 text-indigo-600" />
+                  )}
                 </div>
-
-                <div className="space-y-2 text-sm text-gray-600">
-                  <div className="flex items-center gap-2">
-                    <UserCircleIcon className="h-4 w-4" />
-                    <span>{mat.uploadedBy}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <BookOpenIcon className="h-4 w-4" />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>Semester {selectedSemester % 8}</span>
-                  </div>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm">
-                    {mat.type}
-                  </span>
-                  <a
-                    href={"http://localhost:8080" + mat.fileUrl}
-                    className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                      />
-                    </svg>
-                  </a>
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold text-indigo-800 mb-2">
+                    {mat.title}
+                  </h2>
+                  {mat.description && (
+                    <p className="text-sm text-gray-600 mb-3">
+                      {mat.description}
+                    </p>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
 
-          {materials.length === 0 && selectedSubject && (
-            <div className="text-center mt-12 p-8 bg-white rounded-2xl shadow-lg">
-              <p className="text-gray-500 text-lg">
-                📭 No materials found for this subject
-              </p>
+              <div className="space-y-2 text-sm text-gray-600">
+                <div className="flex items-center gap-2">
+                  <UserCircleIcon className="h-4 w-4 text-indigo-500" />
+                  <span>{mat.uploadedBy}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <BookOpenIcon className="h-4 w-4 text-indigo-500" />
+                  <span>Semester {selectedSemester % 8}</span>
+                </div>
+              </div>
+
+              <div className="mt-4 flex items-center justify-between">
+                <span className="bg-indigo-100 px-3 py-1 rounded-full text-sm text-indigo-800">
+                  {mat.type}
+                </span>
+                <a
+                  href={"http://localhost:8080" + mat.fileUrl}
+                  className="text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                </a>
+              </div>
             </div>
-          )}
+          ))}
         </div>
+
+        {/* Empty state - Only CSS classes changed */}
+        {materials.length === 0 && selectedSubject && (
+          <div className="text-center mt-12 p-8 bg-white rounded-2xl shadow-lg border border-white animate-fadeIn">
+            <p className="text-gray-500 text-lg">
+              📭 No materials found for this subject
+            </p>
+          </div>
+        )}
       </div>
-    </>
+
+      {/* CSS animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
+    </div>
   );
 };
 
 export default HomePage;
+
